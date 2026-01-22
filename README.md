@@ -63,6 +63,7 @@ for movie in all_movies:
 
 ```bash
 # Frontend
+cd frontend
 npm install
 npm run dev
 
