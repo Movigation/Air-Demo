@@ -372,10 +372,7 @@ function App() {
                 </div>
 
                 {/* Movie Recommendations */}
-                <div
-                  className="mb-4 overflow-hidden bg-white shadow-sm rounded-2xl animate-fade-in"
-                  style={{ animationDelay: "0.2s" }}
-                >
+                <div className="mb-4 overflow-hidden bg-white shadow-sm rounded-2xl">
                   <div className="p-4 border-b border-gray-100">
                     <div className="flex items-center gap-3">
                       <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl">
