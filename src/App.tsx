@@ -58,9 +58,11 @@ function App() {
     setError(null)
 
     try {
-      const response = await axios.post(API_URL, {
-        flight_duration: flightDuration,
-      })
+      // API 호출과 최소 로딩 시간을 병렬로 실행
+      const [response] = await Promise.all([
+        axios.post(API_URL, { flight_duration: flightDuration }),
+        new Promise(resolve => setTimeout(resolve, 2000)) // 최소 2초 로딩 (애니메이션 표시용)
+      ])
 
       setMovies(response.data.movies || [])
       setTotalRuntime(response.data.total_runtime || 0)
@@ -90,10 +92,12 @@ function App() {
     setBookingStep('booking')
     setBookedFlight(selectedFlight)
 
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    await fetchMovieRecommendations(selectedFlight.duration)
-
+    // 잠시 대기 후 complete 화면으로 전환 (로딩 애니메이션 보이도록)
+    await new Promise(resolve => setTimeout(resolve, 800))
     setBookingStep('complete')
+
+    // complete 화면에서 영화 추천 로딩 (비행기 애니메이션 표시)
+    await fetchMovieRecommendations(selectedFlight.duration)
   }
 
   const resetBooking = () => {
@@ -145,9 +149,9 @@ function App() {
             {bookingStep === 'complete' && bookedFlight ? (
               <>
                 {/* Booking Complete Card */}
-                <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl p-5 mb-4 text-white shadow-lg">
+                <div className="bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl p-5 mb-4 text-white shadow-lg animate-fade-in">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center animate-check">
                       <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
@@ -182,7 +186,7 @@ function App() {
                 </div>
 
                 {/* Movie Recommendations */}
-                <div className="bg-white rounded-2xl shadow-sm overflow-hidden mb-4">
+                <div className="bg-white rounded-2xl shadow-sm overflow-hidden mb-4 animate-fade-in" style={{ animationDelay: '0.2s' }}>
                   <div className="p-4 border-b border-gray-100">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
@@ -205,8 +209,18 @@ function App() {
                   <div className="p-4">
                     {loading ? (
                       <div className="flex flex-col items-center justify-center py-12">
-                        <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-                        <p className="text-gray-500">맞춤 영화 추천 중...</p>
+                        <div className="relative w-64 h-16 mb-4">
+                          {/* 비행 경로 */}
+                          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-200 rounded-full" />
+                          {/* 비행기 */}
+                          <div className="absolute top-1/2 -translate-y-1/2 animate-plane">
+                            <svg className="w-8 h-8 text-blue-500 -rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/>
+                            </svg>
+                          </div>
+                        </div>
+                        <p className="text-gray-600 font-medium">맞춤 영화 추천 중...</p>
+                        <p className="text-gray-400 text-sm mt-1">잠시만 기다려주세요</p>
                       </div>
                     ) : error ? (
                       <div className="text-center py-12">
@@ -220,7 +234,7 @@ function App() {
                     ) : movies.length > 0 ? (
                       <div className="grid grid-cols-3 gap-3">
                         {movies.map((movie) => (
-                          <div key={movie.movie_id} className="group">
+                          <div key={movie.movie_id} className="group movie-card">
                             <div className="aspect-[2/3] bg-gray-100 rounded-xl overflow-hidden mb-2 shadow-sm group-hover:shadow-md transition">
                               {movie.poster_path ? (
                                 <img
@@ -292,7 +306,7 @@ function App() {
                       <div
                         key={flight.id}
                         onClick={() => handleFlightSelect(flight)}
-                        className={`bg-white rounded-2xl p-4 shadow-sm active:scale-[0.98] transition cursor-pointer ${
+                        className={`flight-card bg-white rounded-2xl p-4 shadow-sm cursor-pointer ${
                           selectedFlight?.id === flight.id
                             ? 'ring-2 ring-blue-500 bg-blue-50/50'
                             : ''
@@ -360,18 +374,15 @@ function App() {
         {activeTab === 'mypage' && (
           <div className="p-4">
             <div className="bg-white rounded-2xl p-6 mb-4 shadow-sm">
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
-                  G
+                  문
                 </div>
                 <div>
-                  <p className="font-bold text-lg text-gray-900">Guest</p>
-                  <p className="text-gray-500 text-sm">로그인하고 더 많은 혜택 받기</p>
+                  <p className="font-bold text-lg text-gray-900">문수현</p>
+                  <p className="text-gray-500 text-sm">Air Demo 회원</p>
                 </div>
               </div>
-              <button className="w-full py-3 bg-blue-500 text-white rounded-xl font-semibold">
-                로그인 / 회원가입
-              </button>
             </div>
 
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -428,9 +439,15 @@ function App() {
           onClick={() => { setActiveTab('home'); resetBooking(); }}
           className={`flex flex-col items-center py-2 px-4 ${activeTab === 'home' ? 'text-blue-500' : 'text-gray-400'}`}
         >
-          <svg className="w-6 h-6" fill={activeTab === 'home' ? 'currentColor' : 'none'} stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={activeTab === 'home' ? 0 : 2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-          </svg>
+          {activeTab === 'home' ? (
+            <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 3l9 8h-3v10h-5v-6h-2v6H6V11H3l9-8z"/>
+            </svg>
+          ) : (
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 12l9-9 9 9M5 10v10h5v-6h4v6h5V10"/>
+            </svg>
+          )}
           <span className="text-xs mt-1 font-medium">홈</span>
         </button>
         <button

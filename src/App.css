@@ -20,3 +20,104 @@
 .safe-area-bottom {
   padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
 }
+
+/* Plane flying animation */
+@keyframes plane-fly {
+  0% {
+    left: 0%;
+  }
+  100% {
+    left: calc(100% - 32px);
+  }
+}
+
+.animate-plane {
+  animation: plane-fly 1.8s ease-in-out infinite alternate;
+}
+
+/* Fade in animation */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+/* Staggered fade in for movie cards */
+.movie-card {
+  opacity: 0;
+  animation: fade-in 0.4s ease-out forwards;
+}
+
+.movie-card:nth-child(1) { animation-delay: 0.1s; }
+.movie-card:nth-child(2) { animation-delay: 0.15s; }
+.movie-card:nth-child(3) { animation-delay: 0.2s; }
+.movie-card:nth-child(4) { animation-delay: 0.25s; }
+.movie-card:nth-child(5) { animation-delay: 0.3s; }
+.movie-card:nth-child(6) { animation-delay: 0.35s; }
+
+/* Pulse animation for loading */
+@keyframes pulse-soft {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-soft {
+  animation: pulse-soft 1.5s ease-in-out infinite;
+}
+
+/* Success check animation */
+@keyframes check-pop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-check {
+  animation: check-pop 0.5s ease-out forwards;
+}
+
+/* Card hover/tap effect */
+.flight-card {
+  transition: all 0.2s ease;
+}
+
+.flight-card:active {
+  transform: scale(0.98);
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
