@@ -442,18 +442,18 @@ function App() {
                         {movies.map((movie) => (
                           <div
                             key={movie.movie_id}
-                            className="relative group movie-card w-[calc(33.333%-8px)] aspect-[2/3] rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition"
+                            className="relative group movie-card w-[calc(50%-6px)] aspect-[2/3] rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition"
                           >
                             {movie.poster_path ? (
                               <img
-                                src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+                                src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
                                 alt={movie.title}
                                 className="object-cover w-full h-full"
                               />
                             ) : (
                               <div className="flex items-center justify-center w-full h-full bg-gray-200 text-gray-400">
                                 <svg
-                                  className="w-10 h-10"
+                                  className="w-12 h-12"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
                                 >
@@ -464,11 +464,11 @@ function App() {
                             {/* Gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                             {/* Title & Runtime */}
-                            <div className="absolute bottom-0 left-0 right-0 p-2">
-                              <p className="text-xs font-bold text-white leading-tight line-clamp-2">
+                            <div className="absolute bottom-0 left-0 right-0 p-3">
+                              <p className="text-sm font-bold text-white leading-tight line-clamp-2">
                                 {movie.title}
                               </p>
-                              <p className="text-[10px] text-white/70 mt-0.5">
+                              <p className="text-xs text-white/70 mt-1">
                                 {movie.runtime}분
                               </p>
                             </div>
