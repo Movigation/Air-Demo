@@ -2,92 +2,6 @@ import { useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-// Confetti Component
-const Confetti = () => {
-  const colors = [
-    "#3B82F6",
-    "#10B981",
-    "#F59E0B",
-    "#EF4444",
-    "#8B5CF6",
-    "#EC4899",
-  ];
-
-  // 기본 confetti (30개)
-  const confettiPieces = Array.from({ length: 30 }, (_, i) => ({
-    id: i,
-    left: Math.random() * 100,
-    delay: Math.random() * 1.5,
-    color: colors[Math.floor(Math.random() * colors.length)],
-    size: Math.random() * 8 + 6,
-  }));
-
-  // 별/이모지 파티클 (15개)
-  const starEmojis = ["✨", "🎉", "⭐", "🌟", "🎊"];
-  const starPieces = Array.from({ length: 15 }, (_, i) => ({
-    id: i + 100,
-    left: Math.random() * 100,
-    delay: Math.random() * 2,
-    emoji: starEmojis[Math.floor(Math.random() * starEmojis.length)],
-  }));
-
-  // 스파클 (화면 중앙에서 터지는 효과, 8개)
-  const sparkles = Array.from({ length: 8 }, (_, i) => ({
-    id: i + 200,
-    left: 40 + Math.random() * 20,
-    top: 20 + Math.random() * 20,
-    delay: Math.random() * 0.5,
-    emoji: "✨",
-  }));
-
-  return (
-    <div className="fixed inset-0 z-50 overflow-hidden pointer-events-none">
-      {/* 기본 confetti */}
-      {confettiPieces.map((piece) => (
-        <div
-          key={piece.id}
-          className="confetti"
-          style={{
-            left: `${piece.left}%`,
-            animationDelay: `${piece.delay}s`,
-            backgroundColor: piece.color,
-            width: piece.size,
-            height: piece.size,
-            borderRadius: Math.random() > 0.5 ? "50%" : "2px",
-          }}
-        />
-      ))}
-      {/* 별/이모지 파티클 */}
-      {starPieces.map((piece) => (
-        <div
-          key={piece.id}
-          className="star-confetti"
-          style={{
-            left: `${piece.left}%`,
-            animationDelay: `${piece.delay}s`,
-          }}
-        >
-          {piece.emoji}
-        </div>
-      ))}
-      {/* 중앙 스파클 */}
-      {sparkles.map((sparkle) => (
-        <div
-          key={sparkle.id}
-          className="sparkle"
-          style={{
-            left: `${sparkle.left}%`,
-            top: `${sparkle.top}%`,
-            animationDelay: `${sparkle.delay}s`,
-          }}
-        >
-          {sparkle.emoji}
-        </div>
-      ))}
-    </div>
-  );
-};
-
 // Air-Demo 백엔드 API (MovieSir API를 커스텀해서 사용)
 const API_URL = "/api/recommend";
 
@@ -220,8 +134,6 @@ function App() {
   const [activeTab, setActiveTab] = useState<"home" | "tickets" | "mypage">(
     "home",
   );
-  const [showConfetti, setShowConfetti] = useState(false);
-
   const fetchMovieRecommendations = async (flightDuration: number) => {
     setLoading(true);
     setError(null);
@@ -264,10 +176,6 @@ function App() {
     // 잠시 대기 후 complete 화면으로 전환 (로딩 애니메이션 보이도록)
     await new Promise((resolve) => setTimeout(resolve, 800));
     setBookingStep("complete");
-
-    // Confetti 효과 표시
-    setShowConfetti(true);
-    setTimeout(() => setShowConfetti(false), 3000);
 
     // complete 화면에서 영화 추천 로딩 (비행기 애니메이션 표시)
     await fetchMovieRecommendations(selectedFlight.duration);
@@ -330,14 +238,11 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 pb-20 overflow-y-auto">
+      <main className="flex-1 pb-16 overflow-y-auto">
         {activeTab === "home" && (
           <div className="p-4">
             {bookingStep === "complete" && bookedFlight ? (
               <>
-                {/* Confetti Effect */}
-                {showConfetti && <Confetti />}
-
                 {/* Booking Complete Card */}
                 <div className="relative p-5 mb-4 overflow-hidden text-white shadow-lg bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl animate-fade-in">
                   <div className="flex items-center gap-3 mb-4">
@@ -825,16 +730,16 @@ function App() {
       </main>
 
       {/* Bottom Tab Bar */}
-      <nav className="fixed bottom-0 left-0 right-0 flex items-center justify-around px-6 py-2 bg-white border-t border-gray-200 safe-area-bottom">
+      <nav className="fixed bottom-0 left-0 right-0 flex items-center justify-around px-4 py-1 bg-white border-t border-gray-200 safe-area-bottom">
         <button
           onClick={() => {
             setActiveTab("home");
             resetBooking();
           }}
-          className={`flex flex-col items-center py-2 px-4 ${activeTab === "home" ? "text-blue-500" : "text-gray-400"}`}
+          className={`flex flex-col items-center py-1 px-3 ${activeTab === "home" ? "text-blue-500" : "text-gray-400"}`}
         >
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             strokeWidth={2}
@@ -850,10 +755,10 @@ function App() {
         </button>
         <button
           onClick={() => setActiveTab("tickets")}
-          className={`flex flex-col items-center py-2 px-4 ${activeTab === "tickets" ? "text-blue-500" : "text-gray-400"}`}
+          className={`flex flex-col items-center py-1 px-3 ${activeTab === "tickets" ? "text-blue-500" : "text-gray-400"}`}
         >
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -869,10 +774,10 @@ function App() {
         </button>
         <button
           onClick={() => setActiveTab("mypage")}
-          className={`flex flex-col items-center py-2 px-4 ${activeTab === "mypage" ? "text-blue-500" : "text-gray-400"}`}
+          className={`flex flex-col items-center py-1 px-3 ${activeTab === "mypage" ? "text-blue-500" : "text-gray-400"}`}
         >
           <svg
-            className="w-6 h-6"
+            className="w-5 h-5"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -890,7 +795,7 @@ function App() {
 
       {/* Floating Book Button */}
       {activeTab === "home" && selectedFlight && bookingStep !== "complete" && (
-        <div className="fixed left-0 right-0 p-4 bottom-20 bg-gradient-to-t from-white via-white to-transparent">
+        <div className="fixed left-0 right-0 p-4 bottom-14 bg-gradient-to-t from-white via-white to-transparent">
           <button
             onClick={handleBooking}
             disabled={bookingStep === "booking"}
