@@ -12,16 +12,37 @@ const Confetti = () => {
     "#8B5CF6",
     "#EC4899",
   ];
-  const confettiPieces = Array.from({ length: 20 }, (_, i) => ({
+
+  // 기본 confetti (30개)
+  const confettiPieces = Array.from({ length: 30 }, (_, i) => ({
     id: i,
     left: Math.random() * 100,
-    delay: Math.random() * 2,
+    delay: Math.random() * 1.5,
     color: colors[Math.floor(Math.random() * colors.length)],
     size: Math.random() * 8 + 6,
   }));
 
+  // 별/이모지 파티클 (15개)
+  const starEmojis = ["✨", "🎉", "⭐", "🌟", "🎊"];
+  const starPieces = Array.from({ length: 15 }, (_, i) => ({
+    id: i + 100,
+    left: Math.random() * 100,
+    delay: Math.random() * 2,
+    emoji: starEmojis[Math.floor(Math.random() * starEmojis.length)],
+  }));
+
+  // 스파클 (화면 중앙에서 터지는 효과, 8개)
+  const sparkles = Array.from({ length: 8 }, (_, i) => ({
+    id: i + 200,
+    left: 40 + Math.random() * 20,
+    top: 20 + Math.random() * 20,
+    delay: Math.random() * 0.5,
+    emoji: "✨",
+  }));
+
   return (
     <div className="fixed inset-0 z-50 overflow-hidden pointer-events-none">
+      {/* 기본 confetti */}
       {confettiPieces.map((piece) => (
         <div
           key={piece.id}
@@ -35,6 +56,33 @@ const Confetti = () => {
             borderRadius: Math.random() > 0.5 ? "50%" : "2px",
           }}
         />
+      ))}
+      {/* 별/이모지 파티클 */}
+      {starPieces.map((piece) => (
+        <div
+          key={piece.id}
+          className="star-confetti"
+          style={{
+            left: `${piece.left}%`,
+            animationDelay: `${piece.delay}s`,
+          }}
+        >
+          {piece.emoji}
+        </div>
+      ))}
+      {/* 중앙 스파클 */}
+      {sparkles.map((sparkle) => (
+        <div
+          key={sparkle.id}
+          className="sparkle"
+          style={{
+            left: `${sparkle.left}%`,
+            top: `${sparkle.top}%`,
+            animationDelay: `${sparkle.delay}s`,
+          }}
+        >
+          {sparkle.emoji}
+        </div>
       ))}
     </div>
   );
@@ -442,18 +490,18 @@ function App() {
                         {movies.map((movie) => (
                           <div
                             key={movie.movie_id}
-                            className="relative group movie-card w-[calc(50%-6px)] aspect-[2/3] rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition"
+                            className="relative group movie-card w-[calc(33.333%-8px)] aspect-[2/3] rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition"
                           >
                             {movie.poster_path ? (
                               <img
-                                src={`https://image.tmdb.org/t/p/w342${movie.poster_path}`}
+                                src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
                                 alt={movie.title}
                                 className="object-cover w-full h-full"
                               />
                             ) : (
                               <div className="flex items-center justify-center w-full h-full bg-gray-200 text-gray-400">
                                 <svg
-                                  className="w-12 h-12"
+                                  className="w-10 h-10"
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
                                 >
@@ -464,12 +512,12 @@ function App() {
                             {/* Gradient overlay */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                             {/* Title & Runtime */}
-                            <div className="absolute bottom-0 left-0 right-0 p-3">
-                              <p className="text-sm font-bold text-white leading-tight line-clamp-2">
+                            <div className="absolute bottom-0 left-0 right-0 p-2">
+                              <p className="text-xs font-bold text-white leading-tight line-clamp-2">
                                 {movie.title}
                               </p>
-                              <p className="text-xs text-white/70 mt-1">
-                                {movie.runtime}분
+                              <p className="text-[10px] text-white/70 mt-0.5">
+                                {formatDuration(movie.runtime)}
                               </p>
                             </div>
                           </div>
