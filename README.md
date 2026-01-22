@@ -6,9 +6,9 @@
 
 Air-Demo는 **MovieSir B2B API**의 크로스 클라우드 호환성을 검증하기 위한 데모 애플리케이션입니다.
 
-**Google Cloud Platform**(Cloud Run)에 배포된 Air-Demo가 **KakaoCloud VPC**에서 운영되는 MovieSir API를 호출하여, 서로 다른 클라우드 환경 간의 원활한 API 통신이 가능함을 증명합니다.
+**Google Cloud Platform**(Cloud Run)에 배포된 Air-Demo가 **KakaoCloud VPC**에서 운영되는 <br />MovieSir API를 호출하여,서로 다른 클라우드 환경 간의 원활한 API 통신이 가능함을 증명합니다.
 
-비행 시간을 입력하면 MovieSir의 AI 추천 엔진이 최적의 영화 조합을 제안하고, Air-Demo 백엔드가 항공사 비즈니스 로직에 맞게 응답을 가공하여 제공합니다.
+비행 시간을 입력하면 MovieSir의 AI 추천 엔진이 최적의 영화 조합을 제안하고, <br />Air-Demo 백엔드가 항공사 비즈니스 로직에 맞게 응답을 가공하여 제공합니다.
 
 > 본 애플리케이션의 UI/UX 디자인 및 프론트엔드/백엔드 구현은 **Movigation 팀**이 직접 설계하고 개발하였습니다.
 
@@ -31,7 +31,7 @@ response = await client.post(
 
 ### 2. 커스텀 필터링
 
-MovieSir API는 **Track A** (장르 맞춤)와 **Track B** (다양성 추천) 두 트랙을 반환합니다.
+MovieSir API는 **Track A** (장르 맞춤)와 **Track B** (다양성 추천) 두 트랙을 반환합니다.<br />
 Air-Demo는 두 트랙을 합친 후, **비행시간 내에 시청 가능한 영화만 필터링**합니다.
 
 ```python
