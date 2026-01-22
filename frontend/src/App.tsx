@@ -12,7 +12,7 @@ const Confetti = () => {
     "#8B5CF6",
     "#EC4899",
   ];
-  const confettiPieces = Array.from({ length: 50 }, (_, i) => ({
+  const confettiPieces = Array.from({ length: 20 }, (_, i) => ({
     id: i,
     left: Math.random() * 100,
     delay: Math.random() * 2,
@@ -182,7 +182,7 @@ function App() {
       // API 호출과 최소 로딩 시간을 병렬로 실행
       const [response] = await Promise.all([
         axios.post(API_URL, { flight_duration: flightDuration }),
-        new Promise((resolve) => setTimeout(resolve, 2000)), // 최소 2초 로딩 (애니메이션 표시용)
+        new Promise((resolve) => setTimeout(resolve, 1000)), // 최소 1초 로딩
       ]);
 
       setMovies(response.data.movies || []);
