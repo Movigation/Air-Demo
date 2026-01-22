@@ -441,11 +441,11 @@ function App() {
                         <p className="font-medium text-gray-600">{error}</p>
                       </div>
                     ) : movies.length > 0 ? (
-                      <div className="grid grid-cols-3 gap-3">
+                      <div className="flex flex-wrap justify-center gap-3">
                         {movies.map((movie) => (
                           <div
                             key={movie.movie_id}
-                            className="group movie-card"
+                            className="group movie-card w-[calc(33.333%-8px)]"
                           >
                             <div className="aspect-[2/3] bg-gray-100 rounded-xl overflow-hidden mb-2 shadow-sm group-hover:shadow-md transition">
                               {movie.poster_path ? (
