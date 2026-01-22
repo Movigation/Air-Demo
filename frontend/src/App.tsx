@@ -402,36 +402,24 @@ function App() {
 
                   <div className="p-4">
                     {loading ? (
-                      <div>
-                        {/* Skeleton Loading */}
-                        <div className="grid grid-cols-3 gap-3 mb-6">
-                          {[1, 2, 3].map((i) => (
-                            <div key={i}>
-                              <div className="aspect-[2/3] rounded-xl mb-2 shimmer" />
-                              <div className="h-3 mb-1 rounded shimmer" />
-                              <div className="w-12 h-2 rounded shimmer" />
-                            </div>
-                          ))}
+                      <div className="flex flex-col items-center py-12">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div
+                            className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "0ms" }}
+                          />
+                          <div
+                            className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "150ms" }}
+                          />
+                          <div
+                            className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
+                            style={{ animationDelay: "300ms" }}
+                          />
                         </div>
-                        <div className="flex flex-col items-center">
-                          <div className="flex items-center gap-2 mb-2">
-                            <div
-                              className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
-                              style={{ animationDelay: "0ms" }}
-                            />
-                            <div
-                              className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
-                              style={{ animationDelay: "150ms" }}
-                            />
-                            <div
-                              className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
-                              style={{ animationDelay: "300ms" }}
-                            />
-                          </div>
-                          <p className="text-sm text-gray-500">
-                            맞춤 영화 추천 중...
-                          </p>
-                        </div>
+                        <p className="text-sm text-gray-500">
+                          맞춤 영화 추천 중...
+                        </p>
                       </div>
                     ) : error ? (
                       <div className="py-12 text-center">
