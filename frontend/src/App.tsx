@@ -43,7 +43,7 @@ interface Movie {
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [_totalRuntime, setTotalRuntime] = useState(0);
+  const [totalRuntime, setTotalRuntime] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showMovies, setShowMovies] = useState(false);
@@ -282,6 +282,15 @@ function App() {
                     </svg>
                   </button>
                 </div>
+
+                {/* 비행 시간 + 총 영화 시간 */}
+                {movies.length > 0 && !loading && (
+                  <div className="px-4 py-2.5 bg-gray-50 border-b border-gray-100 flex items-center justify-center gap-3 text-xs text-gray-500">
+                    <span>비행 시간 <strong className="text-gray-700">{formatDuration(BOARDING_PASS.duration)}</strong></span>
+                    <span className="text-gray-300">|</span>
+                    <span>총 영화 시간 <strong className="text-gray-700">{formatDuration(totalRuntime)}</strong></span>
+                  </div>
+                )}
 
                 {/* 모달 콘텐츠 */}
                 <div className="flex-1 min-h-0 overflow-y-auto px-4 pt-4 pb-4">
