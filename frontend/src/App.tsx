@@ -43,7 +43,7 @@ interface Movie {
 
 function App() {
   const [movies, setMovies] = useState<Movie[]>([]);
-  const [totalRuntime, setTotalRuntime] = useState(0);
+  const [_totalRuntime, setTotalRuntime] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showMovies, setShowMovies] = useState(false);
