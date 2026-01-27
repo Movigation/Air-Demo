@@ -284,9 +284,9 @@ function App() {
                 </div>
 
                 {/* 모달 콘텐츠 */}
-                <div className="flex-1 min-h-0 overflow-y-auto px-4 pb-4">
+                <div className="flex-1 min-h-0 overflow-y-auto px-4 pt-4 pb-4">
                   {loading ? (
-                    <div className="flex flex-col items-center py-12">
+                    <div className="flex flex-col items-center justify-center h-full">
                       <div className="flex items-center gap-2 mb-2">
                         <div
                           className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"
@@ -306,7 +306,7 @@ function App() {
                       </p>
                     </div>
                   ) : error ? (
-                    <div className="py-12 text-center">
+                    <div className="flex flex-col items-center justify-center h-full text-center">
                       <div className="flex items-center justify-center w-16 h-16 mx-auto mb-3 bg-red-100 rounded-full">
                         <svg
                           className="w-8 h-8 text-red-500"
@@ -329,7 +329,7 @@ function App() {
                       {movies.map((movie) => (
                         <div
                           key={movie.movie_id}
-                          className="relative group movie-card w-full aspect-[2/3] rounded-xl overflow-hidden shadow-sm"
+                          className="relative group movie-card w-full max-w-[140px] aspect-[2/3] rounded-xl overflow-hidden shadow-sm"
                         >
                           {movie.poster_path ? (
                             <img
@@ -361,7 +361,7 @@ function App() {
                       ))}
                     </div>
                   ) : (
-                    <div className="py-12 text-center">
+                    <div className="flex flex-col items-center justify-center h-full text-center">
                       <div className="flex items-center justify-center w-16 h-16 mx-auto mb-3 rounded-full bg-amber-100">
                         <svg
                           className="w-8 h-8 text-amber-500"
