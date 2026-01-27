@@ -12,6 +12,12 @@ Air-Demo는 **MovieSir B2B API**의 크로스 클라우드 호환성을 검증�
 
 > 본 애플리케이션의 UI/UX 디자인 및 프론트엔드/백엔드 구현은 **Movigation 팀**이 직접 설계하고 개발하였습니다.
 
+## 스크린샷
+
+| 탑승권 화면 | 장르 선택 | 영화 추천 결과 |
+|:-----------:|:---------:|:-------------:|
+| <img src="docs/air-demo_main.png" width="220" /> | <img src="docs/air-demo_main2.png" width="220" /> | <img src="docs/air-demo_main3.png" width="220" /> |
+
 ## MovieSir B2B API 커스텀 로직
 
 Air-Demo 백엔드는 MovieSir B2B API를 호출한 후 **자체 비즈니스 로직**으로 응답을 가공합니다.
@@ -19,12 +25,18 @@ Air-Demo 백엔드는 MovieSir B2B API를 호출한 후 **자체 비즈니스 �
 ### 1. API 호출
 
 ```python
+payload = {
+    "user_movie_ids": [],          # 항공사는 사용자 선호 영화를 모름
+    "available_time": flight_duration,
+}
+
+# 사용자가 장르를 선택한 경우에만 전달
+if request.genres:
+    payload["preferred_genres"] = request.genres
+
 response = await client.post(
     MOVIESIR_API_URL,
-    json={
-        "user_movie_ids": [],      # 항공사는 사용자 선호 영화를 모름
-        "available_time": flight_duration,
-    },
+    json=payload,
     headers={"X-API-Key": MOVIESIR_API_KEY},
 )
 ```
