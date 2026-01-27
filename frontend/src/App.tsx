@@ -466,7 +466,7 @@ function App() {
                   </p>
 
                   {/* 장르 선택 그리드 */}
-                  <div className="grid grid-cols-2 gap-1.5 max-h-48 overflow-y-auto">
+                  <div className="grid grid-cols-2 gap-1.5">
                     {GENRES.map((genre) => (
                       <button
                         key={genre}
