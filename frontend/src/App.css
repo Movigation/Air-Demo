@@ -16,11 +16,6 @@
   animation: slide-up 0.3s ease-out;
 }
 
-/* Safe area for bottom nav (iOS notch) */
-.safe-area-bottom {
-  padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
-}
-
 /* Fade in animation */
 @keyframes fade-in {
   from {
@@ -50,174 +45,29 @@
 .movie-card:nth-child(5) { animation-delay: 0.3s; }
 .movie-card:nth-child(6) { animation-delay: 0.35s; }
 
-/* Pulse animation for loading */
-@keyframes pulse-soft {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
+/* Boarding pass card shadow */
+.boarding-pass {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.animate-pulse-soft {
-  animation: pulse-soft 1.5s ease-in-out infinite;
+/* 둥둥 떠다니는 애니메이션 (MovieSir 원본: float 3s ease-in-out infinite) */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
 }
 
-/* Success check animation */
-@keyframes check-pop {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }
 
-.animate-check {
-  animation: check-pop 0.5s ease-out forwards;
+/* 비행기 점선 따라 이동 애니메이션 (한 방향 반복) */
+@keyframes fly-path {
+  0% { left: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { left: calc(100% - 20px); opacity: 0; }
 }
 
-/* Card hover/tap effect */
-.flight-card {
-  transition: all 0.2s ease;
-}
-
-.flight-card:active {
-  transform: scale(0.98);
-}
-
-/* Shimmer loading effect */
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-.shimmer {
-  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-}
-
-/* Pulse ring animation */
-@keyframes pulse-ring {
-  0% {
-    transform: scale(1);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(1.8);
-    opacity: 0;
-  }
-}
-
-.animate-pulse-ring {
-  animation: pulse-ring 1.5s ease-out infinite;
-}
-
-/* Flight path dash animation */
-@keyframes dash-move {
-  0% {
-    stroke-dashoffset: 100;
-  }
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-.animate-dash {
-  stroke-dasharray: 8 4;
-  animation: dash-move 2s linear infinite;
-}
-
-/* Plane move along path */
-@keyframes plane-path {
-  0% {
-    left: 10%;
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    left: 90%;
-    opacity: 0;
-  }
-}
-
-.animate-plane-path {
-  animation: plane-path 3s ease-in-out infinite;
-}
-
-/* Shimmer line for flight path */
-@keyframes shimmer-line {
-  0% {
-    transform: translateX(-100%);
-  }
-  100% {
-    transform: translateX(100%);
-  }
-}
-
-.animate-shimmer-line {
-  animation: shimmer-line 2s ease-in-out infinite;
-}
-
-/* Plane fly animation for booking card */
-@keyframes plane-fly {
-  0% {
-    transform: translateX(-50px);
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateX(50px);
-    opacity: 0;
-  }
-}
-
-.animate-plane-fly {
-  animation: plane-fly 2.5s ease-in-out infinite;
-}
-
-/* Flight card plane move animation */
-@keyframes flight-move {
-  0% {
-    left: 8px;
-    opacity: 0;
-  }
-  15% {
-    opacity: 1;
-  }
-  85% {
-    opacity: 1;
-  }
-  100% {
-    left: calc(100% - 24px);
-    opacity: 0;
-  }
-}
-
-.animate-flight-move {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%) rotate(90deg);
-  animation: flight-move 3s ease-in-out infinite;
+.animate-fly-path {
+  animation: fly-path 3s ease-in-out infinite;
 }

@@ -39,6 +39,7 @@ class Movie(BaseModel):
 
 class RecommendRequest(BaseModel):
     flight_duration: int  # 비행시간 (분)
+    genres: Optional[List[str]] = None  # 선호 장르
 
 
 class RecommendResponse(BaseModel):
@@ -73,12 +74,18 @@ async def recommend_movies(request: RecommendRequest):
     # 1. MovieSir API 호출
     async with httpx.AsyncClient(timeout=30.0) as client:
         try:
+            # MovieSir API 요청 본문
+            payload = {
+                "user_movie_ids": [],  # 항공사는 사용자 선호 영화를 모름 → 빈 리스트
+                "available_time": flight_duration,
+            }
+            # 장르가 선택된 경우에만 전달
+            if request.genres:
+                payload["preferred_genres"] = request.genres
+
             response = await client.post(
                 MOVIESIR_API_URL,
-                json={
-                    "user_movie_ids": [],  # 항공사는 사용자 선호 영화를 모름 → 빈 리스트
-                    "available_time": flight_duration,
-                },
+                json=payload,
                 headers={
                     "Content-Type": "application/json",
                     "X-API-Key": MOVIESIR_API_KEY,
