@@ -262,19 +262,29 @@ function App() {
             {/* Movie Modal - 본문 영역만 덮는 오버레이 */}
             {showMovies && (
               <div className="absolute inset-0 z-20 flex items-center justify-center animate-fade-in">
-              <div className="w-[calc(100%-24px)] h-[calc(100%-24px)] flex flex-col bg-blue-50 rounded-2xl shadow-2xl">
-                {/* X 닫기 버튼 */}
-                <button
-                  onClick={() => { setShowMovies(false); setShowGenreSelect(false); setSelectedGenres([]); }}
-                  className="absolute top-5 right-5 z-30 w-8 h-8 flex items-center justify-center rounded-full bg-black/40 hover:bg-black/60 transition-colors"
-                >
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
+              <div className="w-[calc(100%-24px)] h-[calc(100%-24px)] flex flex-col bg-white rounded-2xl" style={{ boxShadow: '0 0 40px rgba(0, 0, 0, 0.35)' }}>
+                {/* 모달 헤더 */}
+                <div className="bg-blue-500 rounded-t-2xl px-4 py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center">
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+                      </svg>
+                    </div>
+                    <p className="text-sm font-bold text-white">무비서가 추천하는 영화</p>
+                  </div>
+                  <button
+                    onClick={() => { setShowMovies(false); setShowGenreSelect(false); setSelectedGenres([]); }}
+                    className="w-7 h-7 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/30 transition-colors"
+                  >
+                    <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
 
-                {/* 모달 콘텐츠 - 영화 추천만 */}
-                <div className="flex-1 min-h-0 overflow-y-auto p-4">
+                {/* 모달 콘텐츠 */}
+                <div className="flex-1 min-h-0 overflow-y-auto px-4 pb-4">
                   {loading ? (
                     <div className="flex flex-col items-center py-12">
                       <div className="flex items-center gap-2 mb-2">
@@ -315,11 +325,11 @@ function App() {
                       <p className="font-medium text-gray-600">{error}</p>
                     </div>
                   ) : movies.length > 0 ? (
-                    <div className="flex flex-wrap justify-center gap-3">
+                    <div className="grid grid-cols-2 gap-3 place-items-center">
                       {movies.map((movie) => (
                         <div
                           key={movie.movie_id}
-                          className="relative group movie-card w-[calc(33.333%-8px)] aspect-[2/3] rounded-xl overflow-hidden shadow-sm"
+                          className="relative group movie-card w-full aspect-[2/3] rounded-xl overflow-hidden shadow-sm"
                         >
                           {movie.poster_path ? (
                             <img
