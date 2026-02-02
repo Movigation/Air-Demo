@@ -14,9 +14,22 @@ Air-Demo는 **MovieSir B2B API**의 크로스 클라우드 호환성을 검증�
 
 ## 스크린샷
 
-| 탑승권 화면 | 장르 선택 | 영화 추천 결과 |
-|:-----------:|:---------:|:-------------:|
-| <img src="docs/air-demo_main.png" width="220" /> | <img src="docs/air-demo_main2.png" width="220" /> | <img src="docs/air-demo_main3.png" width="220" /> |
+<table>
+  <tr>
+    <td width="33%" align="center" valign="bottom">
+      <img src="docs/air-demo_main.png" alt="탑승권 화면" width="100%"/>
+      <br/><sub><b>탑승권 화면</b></sub>
+    </td>
+    <td width="33%" align="center" valign="bottom">
+      <img src="docs/air-demo_main2.png" alt="장르 선택" width="100%"/>
+      <br/><sub><b>장르 선택</b></sub>
+    </td>
+    <td width="33%" align="center" valign="bottom">
+      <img src="docs/air-demo_main3.png" alt="영화 추천 결과" width="100%"/>
+      <br/><sub><b>영화 추천 결과</b></sub>
+    </td>
+  </tr>
+</table>
 
 ## MovieSir B2B API 커스텀 로직
 

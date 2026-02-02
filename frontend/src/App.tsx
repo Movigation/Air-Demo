@@ -407,8 +407,8 @@ function App() {
         </div>
       </main>
 
-      {/* 챗봇 + 말풍선 (화면 하단 오른쪽 고정, 컨텐츠 위에 떠있음) */}
-      <div className="fixed bottom-4 right-4 z-50 animate-fade-in">
+      {/* 챗봇 + 말풍선 (컨테이너 하단 오른쪽 고정) */}
+      <div className="fixed bottom-4 z-50 animate-fade-in chatbot-container">
         <div className="flex items-end gap-3">
           {/* 말풍선 (FloatingBubble 원본 스타일) */}
           {showBubble && (

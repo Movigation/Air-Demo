@@ -4,4 +4,28 @@
 
 body {
   font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 430px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f0f0f0;
+}
+
+/* 앱 컨테이너 배경 (body 안쪽) */
+#root {
+  background: #ffffff;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* 챗봇 위치: 컨테이너(430px) 안에서 오른쪽 고정 */
+.chatbot-container {
+  /* 모바일: 화면 오른쪽 */
+  right: 16px;
+}
+
+@media (min-width: 430px) {
+  /* PC: 컨테이너 오른쪽 안쪽에 위치 */
+  .chatbot-container {
+    right: calc(50% - 215px + 16px);
+  }
 }
